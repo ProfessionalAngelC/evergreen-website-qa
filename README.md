@@ -2,7 +2,7 @@
 
 Quality assurance testing performed on the public WA Evergreen Insulation LLC website.
 
-I took on this small QA project to evaluate the website from a customer perspective, document reproducible issues, and build clear testing evidence that could be used internally or shared with the website platform provider when appropriate.
+I took on this small QA project to evaluate the website from a customer perspective, document reproducible issues, and create testing evidence that could be reviewed internally or shared with the website platform provider when appropriate.
 
 The website uses Housecall Pro services and was tested primarily as a black box application without access to the website source code or production database.
 
@@ -18,52 +18,46 @@ Testing included:
 * Regression testing
 * Defect reporting
 * Chrome DevTools investigation
-* Browser automation
-* API testing
+* Playwright automation
+* API testing with Postman
 
 ## Tools
 
-### Test Management
+**Test Management**
 
-* Jira Cloud
-* Xray Test Management
+Jira Cloud, Xray Test Management
 
-### Technical Testing
+**Technical Testing**
 
-* Chrome DevTools
-* Playwright
-* Postman
+Chrome DevTools, Playwright, Postman
 
-### Development and Version Control
+**Development and Version Control**
 
-* TypeScript
-* Node.js
-* npm
-* Visual Studio Code
-* Git
-* GitHub
+TypeScript, Node.js, npm, Visual Studio Code, Git, GitHub
 
-## Manual Testing
+## Manual Testing and Regression
 
-I created and executed test cases in Jira and Xray for the main customer facing areas of the website.
+I created and executed manual test cases in Jira and Xray covering the main customer facing areas of the website.
 
-Coverage included:
+Coverage included Services, About Us, Book Online, Customer Login, mobile navigation, responsive layout, and mobile Services menu behavior.
 
-* Services navigation
-* About Us navigation
-* Book Online
-* Customer Login
-* Mobile navigation
-* Mobile layout
-* Services mobile menu behavior
+Regression executions were recorded using PASS, FAIL, and blocked results.
 
-Regression executions were documented using PASS, FAIL, and blocked results.
+### Regression Test Execution
+
+![Xray Mobile Regression Results](evidence/jira-xray/ewqa-mobile-regression-cycle-01-results.png)
+
+Additional Jira and Xray evidence is available in the `evidence/jira-xray` folder.
 
 ## Defects Identified
 
+Testing identified multiple reproducible mobile issues.
+
 ### EWQA 16
 
-The mobile homepage hero heading displayed poor word wrapping and partially hidden text at a 390 x 844 viewport.
+The homepage hero heading displayed poor word wrapping and partially hidden text at a 390 x 844 viewport.
+
+![EWQA 16 Mobile Heading Defect](evidence/defects/EWQA-16-hero-heading-word-wrapping-390x844.png)
 
 ### EWQA 17
 
@@ -73,62 +67,49 @@ The review widget attribution was partially obscured on mobile.
 
 The Services submenu did not collapse correctly during the tested mobile navigation workflow after navigating to the Services page.
 
-Each defect was documented in Jira with reproduction steps and supporting screenshots.
+Each defect was documented with reproduction steps and supporting evidence.
 
-The purpose of the defect documentation was to create enough evidence for the issue to be reproduced and reviewed internally or escalated to the website platform provider if needed.
+Additional defect evidence is available in the `evidence/defects` folder.
 
-## Chrome DevTools
+## Chrome DevTools Investigation
 
-I used Chrome DevTools to investigate issues beyond the visible user interface.
+I used Chrome DevTools to investigate application behavior beyond what was visible in the UI.
 
-Testing included:
+This included DOM inspection, computed styles, console investigation, network requests, HTTP responses, responsive testing, and comparison of website information with data returned through network requests.
 
-* DOM inspection
-* Computed style review
-* Console investigation
-* Network request analysis
-* HTTP response review
-* Responsive viewport testing
-* Comparison of website information with data returned through network requests
+### UI and Network Data Validation
 
-DevTools helped separate visible UI behavior from network and application behavior without assuming a root cause that had not been confirmed.
+![DevTools UI Data Validation](evidence/devtools/devtools-network-ui-data-validation.png)
+
+DevTools helped me investigate whether behavior was limited to the UI or related to network and application behavior without claiming a root cause that had not been confirmed.
 
 ## Playwright Automation
 
 I created Playwright tests using TypeScript for selected regression scenarios.
 
-### Desktop Automation
-
-Automated scenarios included:
+Desktop automation covered:
 
 * Services navigation
 * About Us navigation
 * Housecall Pro Book Online integration
 
-The tests were executed across:
+The suite was executed across Chromium, Firefox, and WebKit.
 
-* Chromium
-* Firefox
-* WebKit
+**Final result: 9 of 9 cross browser executions passed.**
 
-Final result:
+### Cross Browser Regression Results
 
-**9 of 9 cross browser executions passed**
+![Playwright Cross Browser Results](evidence/playwright/playwright-navigation-regression-cross-browser-pass.png)
 
-### Mobile Automation
+I also created a separate mobile test using a 390 x 844 viewport.
 
-I created a separate mobile test using a 390 x 844 viewport.
+The test verifies that the mobile navigation button is displayed, the menu opens, the close state appears, and the menu closes successfully.
 
-The test verifies:
+The mobile test was repeated three times in Chromium to check basic stability.
 
-1. The mobile menu button is visible
-2. The navigation menu opens
-3. The close state appears
-4. The navigation menu closes successfully
+**Final result: 3 of 3 executions passed.**
 
-The test was repeated three times in Chromium to check basic stability.
-
-**3 of 3 executions passed**
+![Playwright Mobile Test Results](evidence/playwright/playwright-mobile-navigation-repeat-pass.png)
 
 ## API Testing
 
@@ -143,59 +124,37 @@ I validated:
 * Correct business name
 * Correct public phone number
 
-**4 of 4 assertions passed**
+**4 of 4 assertions passed.**
+
+![Postman Positive API Test](evidence/postman/postman-content-library-api-validation-pass.png)
 
 ### Negative API Test
 
-I also tested an intentionally invalid endpoint.
-
-I validated:
+I tested an intentionally invalid endpoint and validated:
 
 * HTTP status 404
 * Resource not found response
 
-**2 of 2 assertions passed**
+**2 of 2 assertions passed.**
 
-Additional API testing details are documented in:
+![Postman Negative API Test](evidence/postman/postman-invalid-endpoint-negative-test-pass.png)
 
-`docs/api-testing.md`
+More API testing details are documented in `docs/api-testing.md`.
 
 ## API Workflow
 
 Because this project involved black box testing of the public website, I identified the API endpoint by reviewing network traffic in Chrome DevTools.
 
-In most company environments, I know that QA would typically be given API documentation, Swagger or OpenAPI documentation, developer specifications, or an existing Postman collection. In that case, I would work directly from the documented endpoints and use Chrome DevTools mainly to investigate how the frontend communicates with the API or to troubleshoot issues between the UI and backend services.
+In most company environments, QA would typically be given API documentation, Swagger or OpenAPI documentation, developer specifications, or an existing Postman collection. In that case, I would work directly from the documented endpoints and use Chrome DevTools mainly to investigate how the frontend communicates with the API or to troubleshoot issues between the UI and backend services.
 
 ## Evidence
 
-Testing evidence is organized in the `evidence` folder.
-
-It includes:
-
-* Jira and Xray test results
-* Defect screenshots
-* Chrome DevTools evidence
-* Playwright results
-* Postman results
-
-Sensitive looking configuration values returned by the website were excluded from portfolio documentation and screenshots.
-
-## Project Structure
+The complete evidence set is available in the repository.
 
 ```text
-evergreen-website-qa/
-├── README.md
-├── docs/
-│   ├── requirements.md
-│   └── api-testing.md
-├── evidence/
-│   ├── jira/
-│   ├── xray/
-│   ├── defects/
-│   ├── devtools/
-│   ├── playwright/
-│   └── postman/
-└── automation/
-    └── tests/
-        ├── evergreen-navigation.spec.ts
-        └── evergreen-mobile.spec.ts
+evidence/
+├── defects/
+├── devtools/
+├── jira-xray/
+├── playwright/
+└── postman/
