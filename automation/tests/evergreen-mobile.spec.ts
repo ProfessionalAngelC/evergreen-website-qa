@@ -10,25 +10,46 @@ test('Mobile navigation menu opens and closes correctly', async ({ page }) => {
     waitUntil: 'load'
   });
 
-  const openMenuButton = page.getByRole('button', {
-    name: 'Open menu'
+  const openMenuButton = page
+    .locator('button[aria-label="Open menu"]:visible')
+    .first();
+
+  await expect(openMenuButton).toBeVisible({
+    timeout: 10000
   });
 
-  await expect(openMenuButton).toBeVisible();
+  await expect(openMenuButton).toHaveAttribute(
+    'aria-expanded',
+    'false'
+  );
 
   await openMenuButton.click();
 
-  const closeMenuButton = page.getByRole('button', {
-    name: 'Close menu'
-  });
+  const closeMenuButton = page
+    .locator('button[aria-label="Close menu"]:visible')
+    .first();
 
   await expect(closeMenuButton).toBeVisible({
     timeout: 10000
   });
 
+  await expect(closeMenuButton).toHaveAttribute(
+    'aria-expanded',
+    'true'
+  );
+
   await closeMenuButton.click();
 
-  await expect(openMenuButton).toBeVisible({
+  const reopenedMenuButton = page
+    .locator('button[aria-label="Open menu"]:visible')
+    .first();
+
+  await expect(reopenedMenuButton).toBeVisible({
     timeout: 10000
   });
+
+  await expect(reopenedMenuButton).toHaveAttribute(
+    'aria-expanded',
+    'false'
+  );
 });
