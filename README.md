@@ -33,7 +33,7 @@ Chrome DevTools, Playwright, Postman
 
 **Development and Version Control**
 
-TypeScript, Node.js, npm, Visual Studio Code, Git, GitHub
+TypeScript, Node.js, npm, Visual Studio Code, Git, GitHub, GitHub Actions (CI)
 
 ## Manual Testing and Regression
 
@@ -158,3 +158,20 @@ evidence/
 ├── jira-xray/
 ├── playwright/
 └── postman/
+
+## Continuous Integration (CI) — GitHub Actions
+
+I implemented a Continuous Integration (CI) workflow using GitHub Actions to automatically run Playwright regression tests whenever code is pushed to the `main` branch or a pull request targets `main`.
+
+The workflow:
+
+- Sets up Node.js and installs project dependencies.
+- Installs the required Playwright browsers.
+- Executes automated tests across Chromium, Firefox, and WebKit.
+- Reports test execution results through GitHub Actions.
+
+**Result:** Successfully executed automated Playwright tests in GitHub Actions, demonstrating repeatable regression testing within a CI environment.
+
+**Scope:** This project demonstrates Continuous Integration (CI), not Continuous Deployment (CD), since the website is managed by a third-party provider.
+
+[View GitHub Actions Test Runs](https://github.com/ProfessionalAngelC/evergreen-website-qa/actions)
