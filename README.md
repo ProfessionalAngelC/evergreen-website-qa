@@ -147,18 +147,6 @@ Because this project involved black box testing of the public website, I identif
 
 In most company environments, QA would typically be given API documentation, Swagger or OpenAPI documentation, developer specifications, or an existing Postman collection. In that case, I would work directly from the documented endpoints and use Chrome DevTools mainly to investigate how the frontend communicates with the API or to troubleshoot issues between the UI and backend services.
 
-## Evidence
-
-The complete evidence set is available in the repository.
-
-```text
-evidence/
-├── defects/
-├── devtools/
-├── jira-xray/
-├── playwright/
-└── postman/
-
 ## Continuous Integration (CI) — GitHub Actions
 
 I implemented a Continuous Integration (CI) workflow using GitHub Actions to automatically run Playwright regression tests whenever code is pushed to the `main` branch or a pull request targets `main`.
@@ -175,3 +163,15 @@ The workflow:
 **Scope:** This project demonstrates Continuous Integration (CI), not Continuous Deployment (CD), since the website is managed by a third-party provider.
 
 [View GitHub Actions Test Runs](https://github.com/ProfessionalAngelC/evergreen-website-qa/actions)
+
+## Evidence
+
+The complete evidence set is available in the repository.
+
+```text
+evidence/
+├── defects/
+├── devtools/
+├── jira-xray/
+├── playwright/
+└── postman/
